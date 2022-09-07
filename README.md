@@ -1,5 +1,7 @@
 # quiz-app
 
+This app uses Trivia API to create quiz application.
+
 ## Project setup
 ```
 npm install
@@ -24,6 +26,3 @@ npm run test:unit
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
