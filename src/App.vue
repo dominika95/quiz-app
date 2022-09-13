@@ -10,12 +10,21 @@
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #EEF4ED;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(110deg, #0B2545 20%, #13315C 80%);
 }
+
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 10;
+      }
 
 nav {
   padding: 30px;
