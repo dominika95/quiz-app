@@ -5,7 +5,7 @@
       <div class="quizFormInput" >
         <label for="numberOfQuestion">
           <span>Number of question:</span>
-          <select v-model="defaultNumberOfQuestion">
+          <select v-model="numberOfQuestion">
             <option v-for="n in maxNumberOfQuestion"
                 :key="n"
                 :value="n">
@@ -16,9 +16,9 @@
       </div>
 
       <div class="quizFormInput">
-        <label for="defaultCategory">
+        <label for="selectedCategory">
           <span>Select category:</span>
-          <select v-model="defaultCategory">
+          <select v-model="selectedCategory">
             <option value="any">Any category</option>
             <option v-for="option in categories"
                 :key="option.id"
@@ -43,9 +43,9 @@
       </div>
 
       <div class="quizFormInput">
-        <label for="defaultType">
+        <label for="selectedType">
           <span>Select type:</span>
-          <select v-model="defaultType">
+          <select v-model="selectedType">
             <option v-for="option in types"
                 :key="option.id"
                 :value="option.id">
@@ -63,22 +63,35 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import type { selectList, categoriesList } from '../typings/form';
+import { useStore } from 'vuex';
+import router from '../router';
+import type { SelectList, CategoriesList } from '../typings/form';
 
-const defaultNumberOfQuestion = ref<number>(10);
+const numberOfQuestion = ref<number>(10);
 const maxNumberOfQuestion = 50;
 
-const difficulties:selectList[] = [{ id: 'easy', label: 'Easy' }, { id: 'medium', label: 'Medium' }, { id: 'hard', label: 'Hard' }];
+const difficulties:SelectList[] = [{ id: 'any', label: 'Any dificulty' }, { id: 'easy', label: 'Easy' }, { id: 'medium', label: 'Medium' }, { id: 'hard', label: 'Hard' }];
 const selectedDifficulty = ref<string>(difficulties[0].id);
 
-const types:selectList[] = [{ id: 'any', label: 'Any type' }, { id: 'multiple', label: 'Multiple choice' }, { id: 'boolean', label: 'True / false' }];
-const defaultType = ref<string>(types[0].id);
+const types:SelectList[] = [{ id: 'any', label: 'Any type' }, { id: 'multiple', label: 'Multiple choice' }, { id: 'boolean', label: 'True / false' }];
+const selectedType = ref<string>(types[0].id);
 
-const categories = ref<categoriesList[]>([]);
-const defaultCategory = ref<string>('any');
+const categories = ref<CategoriesList[]>([]);
+const selectedCategory = ref<string>('any');
+
+const store = useStore();
 
 const startQuiz = () => {
-  console.log(defaultCategory, defaultType);
+  console.log(selectedCategory, selectedType, selectedDifficulty, numberOfQuestion);
+
+  store.commit('setFormSettings', {
+    numberOfQuestions: numberOfQuestion,
+    category: selectedCategory,
+    difficulty: selectedDifficulty,
+    type: selectedType,
+  });
+
+  store.dispatch('fetchData');
 };
 
 onMounted(() => {
@@ -92,7 +105,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .quizForm {
-  width: 80%;
+  width: 60%;
   margin: 0 auto;
   padding: 20px;
   box-shadow: 0 0 30px #080808;
@@ -110,10 +123,10 @@ onMounted(() => {
     label {
       margin: 10px;
       text-transform: uppercase;
-      color: #b5d1f3;
+      color: #efe4b0;
       font-size: 0.8em;
       display: block;
-      width: 30%;
+      width: 50%;
       margin: auto;
       text-align: left;
 
@@ -128,14 +141,14 @@ onMounted(() => {
         display: block;
         width: 100%;
         padding: 5px;
-        color: #EEF4ED;
+        color: #b5d1f3;
         margin-top: 5px;
       }
     }
     }
 
   .quizFormButton {
-    color: #EEF4ED;
+    color: #b5d1f3;
     background: transparent;
     padding: 10px;
     margin: 20px;

@@ -1,7 +1,4 @@
 <template>
-  <div class="home">
-    <h1>Welcome!</h1>
-  </div>
     <QuizSetupForm/>
 </template>
 
@@ -17,5 +14,4 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-
 </style>
