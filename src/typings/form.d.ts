@@ -1,9 +1,9 @@
-export interface selectList {
+export interface SelectList {
     id: string;
     label: string;
-};
+}
 
-export interface categoriesList {
+export interface CategoriesList {
     id: string;
     name: string;
-};
+}
