@@ -46,6 +46,13 @@ export default createStore<State>({
 
       console.log(state);
     },
+    changePage(state, change) {
+      const newPage = state.currentPage + change;
+
+      if (newPage >= 0 && newPage <= state.quizConfig.numberOfQuestions - 1) {
+        state.currentPage = newPage;
+      }
+    },
   },
   actions: {
     async fetchData({ state, commit }) {

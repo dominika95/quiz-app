@@ -2,8 +2,8 @@ interface ResponseData {
     data: {
         results: {
             category: string;
-            correct_answer: string, 
-            difficulty: string, 
+            correct_answer: string,
+            difficulty: string,
             incorrect_answers: string[],
             question: string,
             type: string,
@@ -13,7 +13,7 @@ interface ResponseData {
 
 interface ParseQuestion {
     category: string;
-    difficulty: string, 
+    difficulty: string,
     answers: string[],
     question: string,
     type: string,
