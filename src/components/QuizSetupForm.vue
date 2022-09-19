@@ -153,11 +153,24 @@ onMounted(() => {
     margin: 20px;
     border-radius: 25px;
     box-shadow: 0px 0px 5px black;
+    border-color: transparent;
     cursor: pointer;
 
     &:hover {
       color: #0b2545;
       background: #efe4b0;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .quizForm {
+    width: 90%;
+
+    .quizFormInput {
+      label {
+        width: 90%
+      }
     }
   }
 }

@@ -1,17 +1,14 @@
 <template>
     <div class="question">
-        <h6 class="category">{{currentQuestion?.category}}</h6>
-        <h4 v-html="currentQuestion?.question || ''"></h4>
+        <p class="category">{{currentQuestion?.category}}</p>
+        <p class="categoryQuestion" v-html="currentQuestion?.question || ''"></p>
 
-        <div class="answer" v-for="answer in currentQuestion?.answers" :key="answer" >
-            <label :for="answer">
-                <input :id="answer"
-                    @click="saveAnswer(answer)"
-                    type="radio"
-                    :value="answer"
-                    v-model="picked">
-                {{answer}}
-            </label>
+        <div
+            v-for="answer in currentQuestion?.answers"
+            :class="[picked === answer ? 'choosenAnswer' : '', 'answer']"
+            :key="answer"
+            v-on:click="saveAnswer(answer)"
+            v-html="answer">
         </div>
     </div>
 </template>
@@ -28,6 +25,7 @@ const picked = computed(() => store.getters.getCurrentAnswer);
 
 const saveAnswer = (answer: string) => {
   store.commit('saveAnswer', answer);
+  console.log(store.getters.getCurrentAnswer);
 };
 </script>
 
@@ -35,13 +33,47 @@ const saveAnswer = (answer: string) => {
   .question {
     .category {
         text-transform: uppercase;
+        margin-bottom: 0;
+        font-size: 0.9em;
+    }
+    .categoryQuestion {
+        font-size: 1.5em;
     }
 
     .answer {
-        label {
-            cursor: pointer;
+        cursor: pointer;
+        border-radius: 10px;
+        padding: 10px;
+        border-color: black;
+        border-style: solid;
+        width: 50%;
+        margin: 10px auto;
+
+        &:hover {
+            color: #13315C;
+            background-color: #efe4b0;
         }
     }
+
+    .choosenAnswer {
+        color: #13315C;
+        background-color: #efe4b0;
+    }
   }
+
+  @media (max-width: 480px) {
+    .question {
+      .answer {
+        width:70%;
+        font-size: 0.8em;
+      }
+      .category {
+        font-size: 0.8em;
+    }
+    .categoryQuestion {
+        font-size: 1.1em;
+    }
+    }
+}
 
 </style>
