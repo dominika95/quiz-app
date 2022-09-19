@@ -2,7 +2,7 @@
     <div class="progressBar">
         <b-progress :value="value" :max="max" class="mb-3 customProgress">
             <b-progress-bar :value="value">
-                <span>Progress: <strong>{{ value }} / {{ max }}</strong></span>
+                <span><strong>{{ value }} / {{ max }}</strong></span>
             </b-progress-bar>
         </b-progress>
     </div>
@@ -15,12 +15,13 @@ import { useStore } from 'vuex';
 const store = useStore();
 
 const max = store.getters.getNumberOfQuestions;
-const value = computed(() => store.getters.getCurrentPage);
+const value = computed(() => store.getters.getCurrentPage + 1);
 
 </script>
 
 <style lang="scss">
   .progressBar {
+    padding-top: 20px;
     .customProgress {
         height: 30px;
         border-radius: 30px;

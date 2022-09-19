@@ -14,6 +14,10 @@ export default createStore<State>({
     questions: [],
     currentPage: 0,
     answer: [],
+    correctAnswer: [],
+    result: {
+      numberOfCorrectlyAnswers: 0,
+    },
   },
   getters: {
     getNumberOfQuestions(state) {
@@ -24,6 +28,15 @@ export default createStore<State>({
     },
     getCurrentPage(state) {
       return state.currentPage;
+    },
+    getCurrentQuestion(state) {
+      return state.questions[state.currentPage];
+    },
+    getResult(state) {
+      return state.result;
+    },
+    getCurrentAnswer(state) {
+      return state.answer[state.currentPage];
     },
   },
   mutations: {
@@ -43,8 +56,7 @@ export default createStore<State>({
     },
     saveQuestions(state, { questions, correctAnswer }) {
       state.questions = questions;
-
-      console.log(state);
+      state.correctAnswer = correctAnswer;
     },
     changePage(state, change) {
       const newPage = state.currentPage + change;
@@ -52,6 +64,14 @@ export default createStore<State>({
       if (newPage >= 0 && newPage <= state.quizConfig.numberOfQuestions - 1) {
         state.currentPage = newPage;
       }
+    },
+    saveAnswer(state, change: string) {
+      state.answer[state.currentPage] = change;
+    },
+    saveResult(state, { numberOfCorrectlyAnswers }) {
+      state.result = {
+        numberOfCorrectlyAnswers,
+      };
     },
   },
   actions: {
@@ -64,6 +84,20 @@ export default createStore<State>({
       }));
 
       router.push({ name: 'question' });
+    },
+    getResult({ state, commit }) {
+      let numberOfCorrectlyAnswers = 0;
+      state.correctAnswer.forEach((value, index) => {
+        if (value === state.answer[index]) {
+          numberOfCorrectlyAnswers += 1;
+        }
+      });
+
+      commit('saveResult', {
+        numberOfCorrectlyAnswers,
+      });
+
+      router.push({ name: 'result' });
     },
   },
   modules: {

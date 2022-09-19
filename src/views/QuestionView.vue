@@ -1,15 +1,23 @@
 <template>
     <div class="questionForm">
         <button
-            :class="[currentPage === 0 ? 'disabled': '', 'prevButton']"
+            :class="[currentPage === 0 ? 'disabled': '', 'navigationButton', 'prevButton']"
             @click="prevQuestion">&#8249;
         </button>
         <button
-            :class="[currentPage === numberOfQuestions-1 ? 'disabled': '', 'nextButton']"
+            :class="[currentPage === numberOfQuestions-1 ?
+            'disabled': '', 'navigationButton', 'nextButton']"
             @click="nextQuestion">&#8250;
         </button>
 
         <SingleQuestion/>
+
+        <button
+          :class="[currentPage === numberOfQuestions-1 ?
+          'showSaveButton' : 'hideSaveButton', 'saveButton']"
+          @click="getResult">
+          Save
+        </button>
         <ProgressBar/>
     </div>
 </template>
@@ -23,6 +31,8 @@ import ProgressBar from '@/components/ProgressBar.vue';
 import router from '../router';
 
 const store = useStore();
+
+console.log(store.getters.getQuestions, store.getters.getQuestions.length);
 
 if (!store.getters.getQuestions.length) {
   router.push({ name: 'home' });
@@ -39,6 +49,10 @@ const nextQuestion = () => {
   store.commit('changePage', 1);
 };
 
+const getResult = () => {
+  store.dispatch('getResult');
+};
+
 </script>
 
 <style lang="scss">
@@ -51,7 +65,15 @@ const nextQuestion = () => {
   background: #13315C;
   color: #b5d1f3;
 
-  button {
+  .hideSaveButton {
+    display: none;
+  }
+
+  .showSaveButton {
+    display: block;
+  }
+
+  .navigationButton {
     background-color: transparent;
     border: none;
     font-size: 5em;
@@ -63,7 +85,7 @@ const nextQuestion = () => {
   }
 
   .disabled {
-    opacity: 0.5;
+    opacity: 0.2;
     cursor: auto;
     &:hover {
         color: black;
@@ -76,6 +98,21 @@ const nextQuestion = () => {
 
   .nextButton {
     float: right;
+  }
+
+  .saveButton {
+    color: #efe4b0;
+    background: transparent;
+    padding: 10px;
+    margin: 0 auto;
+    border-radius: 25px;
+    box-shadow: 0px 0px 5px black;
+    cursor: pointer;
+
+    &:hover {
+      color: #0b2545;
+      background: #efe4b0;
+    }
   }
 }
 </style>

@@ -7,5 +7,9 @@ export interface State {
     },
     questions: [],
     currentPage: number,
-    answer: [],
+    answer: string[],
+    correctAnswer: string[],
+    result: {
+        numberOfCorrectlyAnswers: number,
+    }
 }
