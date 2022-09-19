@@ -17,24 +17,32 @@
   color: #EEF4ED;
   width: 100%;
   height: 100%;
-  background: linear-gradient(110deg, #0B2545 20%, #13315C 80%);
+  background-size: contain;
+  background-image: url(./assets/306540187_770889500634300_7350872674608355167_n.png);
 }
 
       html, body {
         height: 100%;
         margin: 0;
         padding: 10;
+        background: #efe4b0;
       }
 
 nav {
-  padding: 30px;
+  margin: 30px;
+  background: #efe4b0;
+  opacity: 0.7;
+  box-shadow: 0px 10px 5px #efe4b0;
 
   a {
-    font-weight: bold;
-    color: #2c3e50;
+    opacity: 1;
+    color: #0b2545;
+    text-decoration: none;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: #0b2545;
+      font-weight: bold;
+      text-decoration: underline;
     }
   }
 }

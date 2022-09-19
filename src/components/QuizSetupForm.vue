@@ -64,7 +64,6 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useStore } from 'vuex';
-import router from '../router';
 import type { SelectList, CategoriesList } from '../typings/form';
 
 const numberOfQuestion = ref<number>(10);
@@ -111,7 +110,7 @@ onMounted(() => {
   box-shadow: 0 0 30px #080808;
   border-radius: 25px;
   background: #13315C;
-  color: #b5d1f3;
+  color: #efe4b0;
 
   h2 {
     margin-top: 0;
@@ -126,7 +125,7 @@ onMounted(() => {
       color: #efe4b0;
       font-size: 0.8em;
       display: block;
-      width: 50%;
+      width: 40%;
       margin: auto;
       text-align: left;
 
@@ -141,20 +140,25 @@ onMounted(() => {
         display: block;
         width: 100%;
         padding: 5px;
-        color: #b5d1f3;
+        color: white;
         margin-top: 5px;
       }
     }
     }
 
   .quizFormButton {
-    color: #b5d1f3;
+    color: #efe4b0;
     background: transparent;
     padding: 10px;
     margin: 20px;
     border-radius: 25px;
     box-shadow: 0px 0px 5px black;
     cursor: pointer;
+
+    &:hover {
+      color: #0b2545;
+      background: #efe4b0;
+    }
   }
 }
 </style>
