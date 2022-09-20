@@ -11,5 +11,13 @@ export interface State {
     correctAnswer: string[],
     result: {
         numberOfCorrectlyAnswers: number,
+        startTime: number,
+        endTime: number,
+    },
+    previousResult : {
+        numberOfCorrectlyAnswers: number,
+        numberOfQuestions: number,
+        startTime: number,
+        endTime: number,
     }
 }
