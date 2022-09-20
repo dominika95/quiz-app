@@ -15,7 +15,7 @@
 
 <script lang="ts" setup>
 import { useStore } from 'vuex';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 
 const store = useStore();
 
@@ -25,7 +25,7 @@ const picked = computed(() => store.getters.getCurrentAnswer);
 
 const saveAnswer = (answer: string) => {
   store.commit('saveAnswer', answer);
-  console.log(store.getters.getCurrentAnswer);
+  store.commit('changePage', 1);
 };
 </script>
 

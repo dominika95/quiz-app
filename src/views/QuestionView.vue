@@ -23,19 +23,18 @@
 </template>
 
 <script lang="ts" setup>
-/* eslint-disable import/no-cycle */
 import { useStore } from 'vuex';
 import { computed } from 'vue';
 import SingleQuestion from '@/components/SingleQuestion.vue';
 import ProgressBar from '@/components/ProgressBar.vue';
-import router from '../router';
+import { goToStartPage } from '@/helpers';
 
 const store = useStore();
 
 console.log(store.getters.getQuestions, store.getters.getQuestions.length);
 
 if (!store.getters.getQuestions.length) {
-  router.push({ name: 'home' });
+  goToStartPage();
 }
 
 const numberOfQuestions = store.getters.getNumberOfQuestions;

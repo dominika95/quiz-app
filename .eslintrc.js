@@ -14,7 +14,11 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'vuejs-accessibility/click-events-have-key-events': 'off'
+    'vuejs-accessibility/click-events-have-key-events': 'off',
+    'import/prefer-default-export': 'off',
+    'prefer-object-spread': 'off',
+    'import/no-duplicates': 'off',
+    'import/no-cycle': 'off',
   },
   overrides: [
     {
