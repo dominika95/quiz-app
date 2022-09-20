@@ -1,6 +1,6 @@
 import { createStore } from 'vuex';
 import type { State } from '../typings/state';
-import { fetchQuestions } from './fetchQuestions';
+import { fetchQuestions } from '../helpers/fetchQuestions';
 import router from '../router';
 
 export default createStore<State>({
@@ -17,6 +17,14 @@ export default createStore<State>({
     correctAnswer: [],
     result: {
       numberOfCorrectlyAnswers: 0,
+      startTime: 0,
+      endTime: 0,
+    },
+    previousResult: {
+      numberOfCorrectlyAnswers: 0,
+      numberOfQuestions: 0,
+      startTime: 0,
+      endTime: 0,
     },
   },
   getters: {
@@ -38,6 +46,9 @@ export default createStore<State>({
     getCurrentAnswer(state) {
       return state.answer[state.currentPage];
     },
+    getPreviousResult(state) {
+      return state.previousResult;
+    },
   },
   mutations: {
     setFormSettings(state, dataProp) {
@@ -49,6 +60,8 @@ export default createStore<State>({
       state.quizConfig.difficulty = difficulty;
       state.quizConfig.type = type;
       state.quizConfig.numberOfQuestions = numberOfQuestions;
+
+      state.result.startTime = new Date().getTime();
 
       state.answer = [];
       state.currentPage = 0;
@@ -68,10 +81,23 @@ export default createStore<State>({
     saveAnswer(state, change: string) {
       state.answer[state.currentPage] = change;
     },
-    saveResult(state, { numberOfCorrectlyAnswers }) {
-      state.result = {
-        numberOfCorrectlyAnswers,
-      };
+    saveResult(state, { numberOfCorrectlyAnswers, endTime }) {
+      state.result.numberOfCorrectlyAnswers = numberOfCorrectlyAnswers;
+      state.result.endTime = endTime;
+    },
+    reset(state) {
+      state.answer = [];
+      state.currentPage = 0;
+      state.questions = [];
+      state.correctAnswer = [];
+    },
+    savePreviousResult(state) {
+      state.previousResult = Object.assign({}, {
+        numberOfCorrectlyAnswers: state.result.numberOfCorrectlyAnswers,
+        numberOfQuestions: state.quizConfig.numberOfQuestions,
+        startTime: state.result.startTime,
+        endTime: state.result.endTime,
+      });
     },
   },
   actions: {
@@ -86,6 +112,7 @@ export default createStore<State>({
       router.push({ name: 'question' });
     },
     getResult({ state, commit }) {
+      const endTime = new Date().getTime();
       let numberOfCorrectlyAnswers = 0;
       state.correctAnswer.forEach((value, index) => {
         if (value === state.answer[index]) {
@@ -95,6 +122,7 @@ export default createStore<State>({
 
       commit('saveResult', {
         numberOfCorrectlyAnswers,
+        endTime,
       });
 
       router.push({ name: 'result' });

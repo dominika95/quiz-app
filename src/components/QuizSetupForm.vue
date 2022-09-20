@@ -64,7 +64,7 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useStore } from 'vuex';
-import type { SelectList, CategoriesList } from '../typings/form';
+import type { SelectList, CategoriesList } from '@/typings/form';
 
 const numberOfQuestion = ref<number>(10);
 const maxNumberOfQuestion = 50;
@@ -80,9 +80,9 @@ const selectedCategory = ref<string>('any');
 
 const store = useStore();
 
-const startQuiz = () => {
-  console.log(selectedCategory, selectedType, selectedDifficulty, numberOfQuestion);
+store.commit('reset');
 
+const startQuiz = () => {
   store.commit('setFormSettings', {
     numberOfQuestions: numberOfQuestion,
     category: selectedCategory,
@@ -153,11 +153,24 @@ onMounted(() => {
     margin: 20px;
     border-radius: 25px;
     box-shadow: 0px 0px 5px black;
+    border-color: transparent;
     cursor: pointer;
 
     &:hover {
       color: #0b2545;
       background: #efe4b0;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .quizForm {
+    width: 90%;
+
+    .quizFormInput {
+      label {
+        width: 90%
+      }
     }
   }
 }

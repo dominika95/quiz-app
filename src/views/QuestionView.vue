@@ -1,5 +1,6 @@
 <template>
     <div class="questionForm">
+        <ProgressBar/>
         <button
             :class="[currentPage === 0 ? 'disabled': '', 'navigationButton', 'prevButton']"
             @click="prevQuestion">&#8249;
@@ -16,26 +17,24 @@
           :class="[currentPage === numberOfQuestions-1 ?
           'showSaveButton' : 'hideSaveButton', 'saveButton']"
           @click="getResult">
-          Save
+          Check result
         </button>
-        <ProgressBar/>
     </div>
 </template>
 
 <script lang="ts" setup>
-/* eslint-disable import/no-cycle */
 import { useStore } from 'vuex';
 import { computed } from 'vue';
 import SingleQuestion from '@/components/SingleQuestion.vue';
 import ProgressBar from '@/components/ProgressBar.vue';
-import router from '../router';
+import { goToStartPage } from '@/helpers';
 
 const store = useStore();
 
 console.log(store.getters.getQuestions, store.getters.getQuestions.length);
 
 if (!store.getters.getQuestions.length) {
-  router.push({ name: 'home' });
+  goToStartPage();
 }
 
 const numberOfQuestions = store.getters.getNumberOfQuestions;
@@ -63,7 +62,7 @@ const getResult = () => {
   box-shadow: 0 0 30px #080808;
   border-radius: 25px;
   background: #13315C;
-  color: #b5d1f3;
+  color: #efe4b0;
 
   .hideSaveButton {
     display: none;
@@ -104,14 +103,26 @@ const getResult = () => {
     color: #efe4b0;
     background: transparent;
     padding: 10px;
-    margin: 0 auto;
+    margin: 30px auto;
     border-radius: 25px;
     box-shadow: 0px 0px 5px black;
     cursor: pointer;
+    width: 40%;
+    color: #0b2545;
+    background: #efe4b0;
 
     &:hover {
-      color: #0b2545;
-      background: #efe4b0;
+      font-weight: bold;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .questionForm {
+    width: 90%;
+
+    .saveButton {
+      width: 50%;
     }
   }
 }

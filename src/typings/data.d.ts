@@ -18,3 +18,10 @@ interface ParseQuestion {
     question: string,
     type: string,
 }
+
+interface InputData {
+    category: string;
+    difficulty: string;
+    type: string;
+    numberOfQuestions: number;
+}

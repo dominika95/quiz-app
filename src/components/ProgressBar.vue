@@ -21,7 +21,6 @@ const value = computed(() => store.getters.getCurrentPage + 1);
 
 <style lang="scss">
   .progressBar {
-    padding-top: 20px;
     .customProgress {
         height: 30px;
         border-radius: 30px;
@@ -36,5 +35,11 @@ const value = computed(() => store.getters.getCurrentPage + 1);
         color: black;
     }
   }
+
+  @media (max-width: 480px) {
+    span {
+      font-size: 0.8em;
+    }
+}
 
 </style>
