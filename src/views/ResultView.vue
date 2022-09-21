@@ -17,12 +17,15 @@
         </div>
 
         <button class="resultButton" @click="startNewQuiz">Start new QUIZ</button>
+
+        <ResultQuestionList/>
     </div>
 </template>
 
 <script lang="ts" setup>
 import { useStore } from 'vuex';
 import PieChart from '@/components/PieChart.vue';
+import ResultQuestionList from '@/components/ResultQuestionList.vue';
 import { getTime } from '@/helpers/index';
 import { goToStartPage } from '@/helpers';
 
@@ -81,7 +84,7 @@ const startNewQuiz = () => {
   }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 760px) {
     .resultPage {
       width: 90%;
     }

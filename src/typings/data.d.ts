@@ -12,6 +12,7 @@ interface ResponseData {
 }
 
 interface ParseQuestion {
+    index: number;
     category: string;
     difficulty: string,
     answers: string[],

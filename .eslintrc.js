@@ -19,6 +19,7 @@ module.exports = {
     'prefer-object-spread': 'off',
     'import/no-duplicates': 'off',
     'import/no-cycle': 'off',
+    'linebreak-style': 'off',
   },
   overrides: [
     {
