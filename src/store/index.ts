@@ -1,7 +1,7 @@
 import { createStore } from 'vuex';
-import type { State } from '../typings/state';
-import { fetchQuestions } from '../helpers/fetchQuestions';
-import router from '../router';
+import { fetchQuestions } from '@/helpers/fetchQuestions';
+import router from '@/router';
+import type { State } from '@/typings/state';
 
 export default createStore<State>({
   state: {
@@ -48,6 +48,12 @@ export default createStore<State>({
     },
     getPreviousResult(state) {
       return state.previousResult;
+    },
+    getAnswers(state) {
+      return state.answer;
+    },
+    getCorrectAnswers(state) {
+      return state.correctAnswer;
     },
   },
   mutations: {

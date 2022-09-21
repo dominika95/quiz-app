@@ -55,7 +55,10 @@
         </label>
       </div>
 
-      <button class="quizFormButton" @click="startQuiz">Let's start the QUIZ!</button>
+      <button class="quizFormButton" @click="startQuiz">
+        <span v-if="!load">Let's start the QUIZ!</span>
+        <div v-if="load" class="loading-ring"><div></div><div></div><div></div><div></div></div>
+      </button>
     </div>
 
 </template>
@@ -68,6 +71,7 @@ import type { SelectList, CategoriesList } from '@/typings/form';
 
 const numberOfQuestion = ref<number>(10);
 const maxNumberOfQuestion = 50;
+const load = ref<boolean>(false);
 
 const difficulties:SelectList[] = [{ id: 'any', label: 'Any dificulty' }, { id: 'easy', label: 'Easy' }, { id: 'medium', label: 'Medium' }, { id: 'hard', label: 'Hard' }];
 const selectedDifficulty = ref<string>(difficulties[0].id);
@@ -83,6 +87,7 @@ const store = useStore();
 store.commit('reset');
 
 const startQuiz = () => {
+  load.value = true;
   store.commit('setFormSettings', {
     numberOfQuestions: numberOfQuestion,
     category: selectedCategory,
@@ -161,12 +166,72 @@ onMounted(() => {
       background: #efe4b0;
     }
   }
+
+  .loading-ring {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+
+    div {
+      box-sizing: border-box;
+      display: block;
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      margin: 8px;
+      border: 8px solid #efe4b0;
+      border-radius: 50%;
+      animation: loading-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+      border-color: #efe4b0 transparent transparent transparent;
+
+      &:hover {
+        border: 8px solid #0b2545;
+        border-color: #0b2545 transparent transparent transparent;
+      }
+
+      &:nth-child(1) {
+        animation-delay: -0.45s;
+      }
+      &::nth-child(2) {
+        animation-delay: -0.3s;
+      }
+      &::nth-child(3) {
+        animation-delay: -0.15s;
+      }
+    }
+
+  @keyframes loading-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+    }
+  }
 }
+
+@media (max-width: 960px) {
+    .quizForm {
+      width: 80%;
+    }
+  }
+
+@media (max-width: 760px) {
+    .quizForm {
+      width: 90%;
+
+      .quizFormInput {
+      label {
+        width: 80%
+      }
+    }
+    }
+  }
 
 @media (max-width: 480px) {
   .quizForm {
-    width: 90%;
-
     .quizFormInput {
       label {
         width: 90%

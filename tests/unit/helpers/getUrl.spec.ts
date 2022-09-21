@@ -18,7 +18,7 @@ describe('Helpers fn - getURL', () => {
   it('get url from default data', () => {
     const url = getURL(defaultData);
     expect(url).toEqual('https://opentdb.com/api.php?amount=10');
-  }),
+  });
   it('get url from example data', () => {
     const url = getURL(exampleData);
     expect(url).toEqual('https://opentdb.com/api.php?amount=11&category=1&type=multiple&difficulty=easy');

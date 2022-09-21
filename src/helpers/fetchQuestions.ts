@@ -12,9 +12,10 @@ function parseData(data: ResponseData): {
 
   questions.forEach(({
     category, correct_answer, difficulty, incorrect_answers, question, type,
-  }) => {
+  }, index) => {
     correctAnswer.push(correct_answer);
     parseQuestion.push({
+      index,
       category,
       difficulty,
       answers: incorrect_answers.concat(correct_answer).sort(),

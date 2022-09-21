@@ -36,10 +36,15 @@ const value = computed(() => store.getters.getCurrentPage + 1);
     }
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 760px) {
     span {
       font-size: 0.8em;
     }
-}
+  }
+  @media (max-width: 480px) {
+    span {
+      font-size: 0.6em;
+    }
+  }
 
 </style>

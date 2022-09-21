@@ -31,8 +31,6 @@ import { goToStartPage } from '@/helpers';
 
 const store = useStore();
 
-console.log(store.getters.getQuestions, store.getters.getQuestions.length);
-
 if (!store.getters.getQuestions.length) {
   goToStartPage();
 }

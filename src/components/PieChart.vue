@@ -58,6 +58,12 @@ const chartOptions = {
     margin: 0 auto;
 }
 
+@media (max-width: 760px) {
+    .resultPieChart {
+      width: 50%;
+    }
+}
+
 @media (max-width: 480px) {
     .resultPieChart {
       width: 100%;
